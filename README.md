@@ -4,3 +4,6 @@
 * JUnit Test source code
 * Continuous Integration (CI) configuration
 * ...
+
+### Screen shot:
+![Login](https://github.com/keru01/EventManagement/blob/main/images/intro.png)
