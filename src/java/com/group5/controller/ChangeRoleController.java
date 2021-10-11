@@ -6,44 +6,49 @@
 package com.group5.controller;
 
 import com.group5.event.EventDAO;
-import com.group5.event.EventDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "RegisterMentorController", urlPatterns = {"/RegisterMentorController"})
-public class RegisterMentorController extends HttpServlet {
+@WebServlet(name = "ChangeRoleController", urlPatterns = {"/ChangeRoleController"})
+public class ChangeRoleController extends HttpServlet {
 
-    private final static String ERROR = "becomeMentor.jsp";
-    private final static String SUCCESS = "becomeMentor.jsp";
+    private final static String ERROR = "changeRole.jsp";
+    private final static String SUCCESS = "changeRole.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        boolean check = false;
+         HttpSession session = request.getSession();
         try {
             String nameRegister = request.getParameter("nameRegister");
-            String gmail = request.getParameter("gmail");
-            String nameEvent = request.getParameter("nameEvent");
-            String category = request.getParameter("category");
-            String location = request.getParameter("location");
-            String startTime = request.getParameter("startTime");
+            String gmail = request.getParameter("gmail");           
+            String reason = request.getParameter("reason");
+      
             EventDAO dao = new EventDAO();
-            dao.sendMailRegisterMentor(nameRegister, gmail, nameEvent, category, location, startTime);
-                    
-//            if () {           
-//                url = SUCCESS;
-//            }
+            check = dao.sendMailChangeRole(nameRegister, gmail, reason);
+            if (check == true) {
+                url = SUCCESS;
+                String message = "Sent seccessfully. Please wait!";
+                request.setAttribute("STUDENT_MESSAGE", message);
+                
+            }
+            else{
+            session.setAttribute("ERROR_MESSAGE", "Error at ChangeRoleController");
+            }
+            
         } catch (Exception e) {
-            log("Error at RegisterMentorController" + e.toString());
+            log("Error at ChangeRoleController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

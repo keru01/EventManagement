@@ -54,6 +54,6 @@
             }
         %>
         
-        <a href="becomeMentor.jsp">Register Mentor</a>
+        <a href="changeRole.jsp">Change Role</a>
     </body>
 </html>

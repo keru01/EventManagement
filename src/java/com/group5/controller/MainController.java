@@ -29,7 +29,7 @@ public class MainController extends HttpServlet {
     private static final String EVENTMENTORATTEND = "SearchEventMentorAttendController";
     private static final String QANDAMENTOR = "QandAMentorController";
     private static final String EDITANWERED = "EditAnswerController";
-    private static final String REGISTERMENTOR = "RegisterMentorController";
+    private static final String CHANGEROLE ="ChangeRoleController";
      
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,8 +44,8 @@ public class MainController extends HttpServlet {
             }
             else if("Edit Answered".equals(action)){
                 url = EDITANWERED;
-            }else if("Register Mentor".equals(action)){
-                url = REGISTERMENTOR;
+            }else if("Confirm Resquest".equals(action)){
+                url = CHANGEROLE;
             }
             else if("AnswerQA".equals(action)){
                 url = ANSWERQA;
